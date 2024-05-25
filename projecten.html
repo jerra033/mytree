@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="index.js"></script>
+    <link rel="stylesheet" href="style.css">
+    <title>Document</title>
+</head>
+
+<body>
+    <header>
+   <nav id="navbar"></nav>
+<nav id="hamburgernav"></nav>
+    </header>
+
+    <div class="progress-container">
+        <div class="progress" data-end="100" data-speed="50">
+            <div class="circle">
+                <span class="value">0%</span>
+            </div>
+            <h2>1</h2>
+        </div>
+    
+        <div class="progress" data-end="30" data-speed="40">
+            <div class="circle">
+                <span class="value">0%</span>
+            </div>
+            <h2>2</h2>
+        </div>
+    
+        <div class="progress" data-end="76" data-speed="30">
+            <div class="circle">
+                <span class="value">0%</span>
+            </div>
+            <h2>3</h2>
+        </div>
+        
+    </div>
+    
+
+        <main>
+            <div class="slider">
+                <div class="slide">
+                    <!-- slide 1 -->
+                    <img src="https://source.unsplash.com/random?landscape,cars" alt="" />
+                </div>
+                <div class="slide">
+                    <!-- slide 2 -->
+                    <img src="https://source.unsplash.com/random?landscape,night" alt="" />
+                </div>
+                <div class="slide">
+                    <!-- slide 3 -->
+                    <img src="https://source.unsplash.com/random?landscape,city" alt="" />
+                </div>
+                <!-- Control buttons -->
+                <button class="btn" id="btn-prev">&#10594;</button>
+                <button class="btn" id="btn-next">&#10596;</button>
+            </div>
+        
+              <div class="divdiv">
+               
+                    <div class="search-bar">
+                        <input type="text" id="zoektekst" placeholder="Zoek contacten" onkeyup="zoekContacten(document.getElementById('zoektekst').value)" />
+                    </div>
+                    <div id="grid"></div>
+              </div>
+         
+        
+        </main> 
+  
+       
+    <footer>
+        <img src="mytree.jpg" alt="footer" />
+    </footer>
+    <script>
+
+let contacten = [];
+
+contacten.push({
+    "Project": "Duurzame landbouw",
+    "Land": "Bangladesh"
+});
+
+contacten.push({
+    "Project": "Red de regenwouden",
+    "Land": "Benin Republiek"
+});
+
+contacten.push({
+    "Project": "Red de regenwouden",
+    "Land": "Mali"
+});
+
+contacten.push({
+    "Project": "Voedselbossen",
+    "Land": "Colombia"
+});
+
+
+        document.addEventListener("DOMContentLoaded", function () {
+    const slides = document.querySelectorAll(".slide");
+    let maxSlide = slides.length - 1;
+    let curSlide = 0;
+
+    slides.forEach((slide, indx) => {
+        slide.style.transform = `translateX(${indx * 100}%)`;
+    });
+
+    let nextSlide = document.querySelector("#btn-next");
+    nextSlide.addEventListener("click", function () {
+        if (curSlide === maxSlide) {
+            curSlide = 0;
+        } else {
+            curSlide++;
+        }
+
+        slides.forEach((slide, indx) => {
+            slide.style.transform = `translateX(${100 * (indx - curSlide)}%)`;
+        });
+    });
+
+    const prevSlide = document.querySelector("#btn-prev");
+    prevSlide.addEventListener("click", function () {
+        if (curSlide === 0) {
+            curSlide = maxSlide;
+        } else {
+            curSlide--;
+        }
+
+        slides.forEach((slide, indx) => {
+            slide.style.transform = `translateX(${100 * (indx - curSlide)}%)`;
+        });
+    });
+});
+
+
+        function zoekContacten(zoektekst) {
+            zoektekst = zoektekst.toUpperCase();
+            let myGrid = "<div class='cell'><b>Naam</b></div><div class='cell'><b>Telefoon</b></div>";
+
+            for (let x = 0; x < contacten.length; x++) {
+                if (contacten[x].naam.toUpperCase().includes(zoektekst)) {
+                    myGrid += '<div class="cell">' + contacten[x].naam + '</div>';
+                    myGrid += '<div class="cell">' + contacten[x].telefoon + '</div>';
+                }
+            }
+
+            document.getElementById("grid").innerHTML = myGrid;
+        }
+  
+    </script>
+    </body>
+    </html>
